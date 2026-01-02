@@ -1,5 +1,9 @@
+import TableJadwal from "./components/tableJadwal";
+
 export default function Jadwal() {
     return (
-        <div>Hello World</div>
+        <div className="w-full">
+            <TableJadwal />
+        </div>
     )
 }
