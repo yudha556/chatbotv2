@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,14 +8,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import DialogTable from "./dialog";
 
 const tugas = [
   {
@@ -36,51 +37,52 @@ const tugas = [
     tanggal: "2026-01-01",
     jam: "18:00",
   },
-]
+];
 
-const today = new Date().toISOString().split("T")[0]
-const todayDate = new Date()
+const today = new Date().toISOString().split("T")[0];
+const todayDate = new Date();
 
 const isOverdue = (tanggal: string, jam: string) => {
-  const deadline = new Date(`${tanggal}T${jam}`)
-  return deadline < new Date()
-}
+  const deadline = new Date(`${tanggal}T${jam}`);
+  return deadline < new Date();
+};
 
 const getDaysLeft = (tanggal: string, jam: string) => {
-  const deadline = new Date(`${tanggal}T${jam}`)
-  const diffTime = deadline.getTime() - todayDate.getTime()
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-}
+  const deadline = new Date(`${tanggal}T${jam}`);
+  const diffTime = deadline.getTime() - todayDate.getTime();
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+};
 
 export default function TableTugas() {
-  const [matkulFilter, setMatkulFilter] = useState("Semua")
+  const [matkulFilter, setMatkulFilter] = useState("Semua");
 
-  const matkulList = ["Semua", ...new Set(tugas.map(t => t.matkul))]
+  const matkulList = ["Semua", ...new Set(tugas.map((t) => t.matkul))];
 
   const filteredTugas =
     matkulFilter === "Semua"
       ? tugas
-      : tugas.filter(t => t.matkul === matkulFilter)
+      : tugas.filter((t) => t.matkul === matkulFilter);
 
   return (
     <div className="space-y-4">
-      {/* Filter */}
-      <div className="w-56">
-        <Select value={matkulFilter} onValueChange={setMatkulFilter}>
-          <SelectTrigger>
-            <SelectValue placeholder="Filter Mata Kuliah" />
-          </SelectTrigger>
-          <SelectContent>
-            {matkulList.map(matkul => (
-              <SelectItem key={matkul} value={matkul}>
-                {matkul}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex flex-row items-center justify-between">
+        <div className="">
+          <Select value={matkulFilter} onValueChange={setMatkulFilter}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter Mata Kuliah" />
+            </SelectTrigger>
+            <SelectContent>
+              {matkulList.map((matkul) => (
+                <SelectItem key={matkul} value={matkul}>
+                  {matkul}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <DialogTable />
       </div>
 
-      {/* Table */}
       <Table>
         <TableHeader>
           <TableRow>
@@ -95,9 +97,9 @@ export default function TableTugas() {
 
         <TableBody>
           {filteredTugas.map((item, index) => {
-            const overdue = isOverdue(item.tanggal, item.jam)
-            const daysLeft = getDaysLeft(item.tanggal, item.jam)
-            const todayDeadline = daysLeft === 0
+            const overdue = isOverdue(item.tanggal, item.jam);
+            const daysLeft = getDaysLeft(item.tanggal, item.jam);
+            const todayDeadline = daysLeft === 0;
 
             return (
               <TableRow
@@ -113,13 +115,10 @@ export default function TableTugas() {
                 }
               >
                 <TableCell>{item.matkul}</TableCell>
-                <TableCell className="font-medium">
-                  {item.judul}
-                </TableCell>
+                <TableCell className="font-medium">{item.judul}</TableCell>
                 <TableCell>{item.tanggal}</TableCell>
                 <TableCell>{item.jam}</TableCell>
 
-                {/* Sisa Waktu */}
                 <TableCell>
                   {overdue
                     ? "Terlambat"
@@ -130,7 +129,6 @@ export default function TableTugas() {
                     : "Aman"}
                 </TableCell>
 
-                {/* Status */}
                 <TableCell
                   className={
                     overdue
@@ -151,10 +149,10 @@ export default function TableTugas() {
                     : "Aman"}
                 </TableCell>
               </TableRow>
-            )
+            );
           })}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

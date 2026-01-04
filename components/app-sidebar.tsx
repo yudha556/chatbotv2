@@ -21,7 +21,7 @@ const items = [
   { title: "Jadwal", url: "jadwal", icon: Calendar },
   { title: "Tugas", url: "tugas", icon: Notebook },
   // { title: "Search", url: "#", icon: Search },
-  { title: "Settings", url: "#", icon: Settings },
+  // { title: "Settings", url: "#", icon: Settings },
 ]
 
 export function AppSidebar() {
@@ -71,15 +71,15 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" className="w-(--radix-dropdown-menu-trigger-width)" align="start">
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="h-10">
                   <a href="/settings" className="flex items-center gap-2">
-                    <Settings className="size-4" />
+                    <Settings className="size-5" />
                     <span>Settings</span>
                   </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-destructive focus:text-destructive">
-                  <LogOut className="size-4" />
+                <DropdownMenuItem className="h-10 text-destructive focus:text-destructive flex flex-row items-center">
+                  <LogOut className="size-5" />
                   <span>Log out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
