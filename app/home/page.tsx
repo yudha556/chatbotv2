@@ -8,7 +8,7 @@ import ChatInput from "./components/chat/ChatInput"
 import ChatMessages from "./components/chat/ChatMessages"
 
 type Message = {
-  role: "user" | "assistant" // test
+  role: "user" | "assistant" // test ting
   text: string
 }
 
