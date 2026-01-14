@@ -3,7 +3,8 @@ import TableTugas from "./components/tableTugas";
 export default function Tugas() {
     return (
         <div>
-            <TableTugas />
+            <TableTugas /> 
         </div>
+        // asdasdasd
     )
 }
